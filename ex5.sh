@@ -3,6 +3,13 @@ red=$'\e[31m'
 green=$'\e[32m'
 yellow=$'\e[33m'
 normal=$'\e[0m'
+user=$(id -u)
+rootaccess(){
+    if [ $user -ne 0 ];then
+        echo -e "$red ERROR $normal: Please run this script as root."
+        exit 1
+    fi
+}
 validate(){
     if [ $1 -ne 0 ]; then
         echo -e "$red ERROR $normal: Failed to install $2"
@@ -15,6 +22,7 @@ dnf list installed nginx &> /dev/null
 if [ $? -eq 0 ]; then
     echo -e "$green SUCCESS $normal nginx is already installed"
 else
+    rootaccess 
     dnf install nginx -y
     validate $? "nginx" 
 fi
