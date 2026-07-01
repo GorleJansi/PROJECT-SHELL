@@ -3,7 +3,8 @@ red=$'\e[31m'
 green=$'\e[32m'
 normal=$'\e[0m'
 folder=/var/log/shell-logs
-logfile=$(echo "$0" | cut -d "." -f 1).log
+logfilename=$(echo "$0" | cut -d "." -f 1)
+logfile=$folder/$logfilename.log
 mkdir -p $folder
 read -p "Enter package to install : " toinstall
 user=$(id -u)
