@@ -11,9 +11,9 @@ validate(){
         echo -e "$green SUCCESS $normal: $2 is installed"    
     fi
 }
-dnf list installed git 
+dnf list installed nginx &> /dev/null
 if [ $? -eq 0 ]; then
-    echo -e "$green SUCCESS $normal git is already installed"
+    echo -e "$green SUCCESS $normal nginx is already installed"
 else
     dnf install nginx -y
     validate $? "nginx" 
