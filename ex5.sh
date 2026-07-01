@@ -3,6 +3,7 @@ red=$'\e[31m'
 green=$'\e[32m'
 yellow=$'\e[33m'
 normal=$'\e[0m'
+read -p "Enter package to install : " $toinstall
 user=$(id -u)
 rootaccess(){
     if [ $user -ne 0 ];then
@@ -18,11 +19,11 @@ validate(){
         echo -e "$green SUCCESS $normal: $2 is installed"    
     fi
 }
-dnf list installed nginx &> /dev/null
+dnf list installed $toinstall &> /dev/null
 if [ $? -eq 0 ]; then
-    echo -e "$green SUCCESS $normal nginx is already installed"
+    echo -e "$green SUCCESS $normal $toinstall is already installed"
 else
     rootaccess 
-    dnf install nginx -y
-    validate $? "nginx" 
+    dnf install $toinstall -y &> /dev/null
+    validate $? $toinstall
 fi
